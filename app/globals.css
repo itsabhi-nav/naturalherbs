@@ -91,6 +91,18 @@ body {
   }
 }
 
+/* phones: hero renders fully visible on first paint. The JS entrance
+   animations are desktop-only, so a slow phone never shows a dark hero */
+@media (pointer: coarse) {
+  .hero .eyebrow,
+  .hero h1 span.overflow-hidden > span,
+  .hero p.mt-6,
+  .hero div.mt-10 {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* IntersectionObserver-driven reveal: class-based, no framer on hot path */
 .rv-hidden {
   opacity: 0;

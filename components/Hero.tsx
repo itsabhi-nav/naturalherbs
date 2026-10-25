@@ -34,7 +34,7 @@ export default function Hero() {
   );
 
   return (
-    <section ref={ref} className="grain relative flex min-h-[84svh] items-center overflow-hidden md:min-h-[100svh]">
+    <section ref={ref} className="hero grain relative flex min-h-[84svh] items-center overflow-hidden md:min-h-[100svh]">
       {/* botanical backdrop with parallax */}
       <motion.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0 -z-10 h-[115%]">
         <SmartImage

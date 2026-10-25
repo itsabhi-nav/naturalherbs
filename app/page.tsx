@@ -155,17 +155,17 @@ export default function HomePage() {
                         {p.tag}
                       </span>
                     </div>
-                    <div className="flex flex-1 flex-col p-7 pt-5">
-                      <h3 className="flex items-center justify-between font-[family-name:var(--font-display)] text-2xl text-cream transition-colors group-hover:text-gold-soft">
+                    <div className="flex flex-1 flex-col p-5 pt-4 md:p-7 md:pt-5">
+                      <h3 className="flex items-start justify-between gap-3 font-[family-name:var(--font-display)] text-xl text-cream transition-colors group-hover:text-gold-soft md:text-2xl">
                         {p.title}
                         <span
                           aria-hidden
-                          className="grid h-9 w-9 place-items-center rounded-full border border-cream/15 text-sm text-sage transition-all duration-300 group-hover:border-gold/60 group-hover:text-gold"
+                          className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-cream/15 text-[0.7rem] text-sage transition-all duration-300 group-hover:border-gold/60 group-hover:text-gold md:mt-0 md:h-9 md:w-9 md:text-sm"
                         >
                           ↗
                         </span>
                       </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-sage">{p.copy}</p>
+                      <p className="mt-2.5 text-sm leading-relaxed text-sage md:mt-3">{p.copy}</p>
                     </div>
                   </Link>
                 </TiltCard>

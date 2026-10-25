@@ -112,7 +112,7 @@ export default function EntryExplorer({
 
       {/* Results */}
       {columns === "cards" ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((it, i) => (
               <motion.article
@@ -122,18 +122,25 @@ export default function EntryExplorer({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={fine ? { duration: 0.45, delay: Math.min(i * 0.03, 0.4), ease: [0.22, 1, 0.36, 1] } : { duration: 0.25 }}
-                className="group relative overflow-hidden rounded-2xl border border-cream/8 bg-pine p-6 transition-colors duration-300 hover:border-gold/30"
+                className="group relative overflow-hidden rounded-2xl border border-cream/8 bg-pine p-4 transition-colors duration-300 hover:border-gold/30 md:p-6"
               >
                 <div
                   aria-hidden
                   className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-leaf/10 blur-2xl transition-all duration-500 group-hover:bg-gold/15"
                 />
-                <p className="mb-3 text-[0.62rem] uppercase tracking-[0.3em] text-gold/80">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="font-[family-name:var(--font-display)] text-2xl text-cream">{it.name}</h3>
-                <p className="mt-0.5 text-xs italic text-sage/80">{it.sub}</p>
-                <p className="mt-4 text-sm leading-relaxed text-sage">{it.note}</p>
+                {/* name + latin stay compact; number sits top-right like a hallmark */}
+                <div className="relative flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <h3 className="font-[family-name:var(--font-display)] text-lg leading-snug text-cream md:text-2xl">
+                      {it.name}
+                    </h3>
+                    <p className="mt-0.5 truncate text-xs italic text-sage/80">{it.sub}</p>
+                  </div>
+                  <span className="mt-1 shrink-0 font-[family-name:var(--font-display)] text-sm text-gold/80 md:text-lg">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <p className="mt-2.5 text-xs leading-relaxed text-sage md:mt-4 md:text-sm">{it.note}</p>
               </motion.article>
             ))}
           </AnimatePresence>
@@ -149,20 +156,26 @@ export default function EntryExplorer({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={fine ? { duration: 0.4, delay: Math.min(i * 0.02, 0.35), ease: [0.22, 1, 0.36, 1] } : { duration: 0.25 }}
-                className="group grid grid-cols-[2.6rem_1fr] gap-x-4 gap-y-1 items-baseline rounded-xl border border-transparent px-4 py-4 transition-all duration-300 hover:border-cream/10 hover:bg-cream/[0.03] md:grid-cols-[3.4rem_1.4fr_1fr_1.2fr] md:gap-6"
+                className="group grid rounded-xl border border-transparent px-4 py-4 transition-all duration-300 hover:border-cream/10 hover:bg-cream/[0.03] md:grid-cols-[3.4rem_1.4fr_1fr_1.2fr] md:items-baseline md:gap-6"
               >
-                <span className="font-[family-name:var(--font-display)] text-lg text-gold/70 transition-colors group-hover:text-gold">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="min-w-0 font-[family-name:var(--font-display)] text-xl leading-snug text-cream transition-colors group-hover:text-gold-soft">
-                  {it.name}
-                </h3>
-                <p className="col-span-2 min-w-0 text-sm leading-relaxed text-sage md:col-span-1 md:leading-normal">
-                  {it.sub}
-                </p>
-                <p className="col-span-2 min-w-0 text-sm leading-relaxed text-sage/90 md:col-span-1 md:leading-normal">
-                  {it.note}
-                </p>
+                {/* mobile: one tidy row (number + name), then compact chips;
+                    md:contents re-attaches each piece to the desktop grid */}
+                <div className="flex items-baseline gap-3 md:contents">
+                  <span className="w-7 shrink-0 font-[family-name:var(--font-display)] text-base text-gold/70 transition-colors group-hover:text-gold md:w-auto md:text-lg">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="min-w-0 font-[family-name:var(--font-display)] text-xl leading-snug text-cream transition-colors group-hover:text-gold-soft">
+                    {it.name}
+                  </h3>
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-2 md:mt-0 md:contents">
+                  <span className="rounded-full border border-cream/10 bg-cream/[0.05] px-3 py-1 text-[0.68rem] uppercase tracking-[0.12em] text-sage transition-all md:border-0 md:bg-transparent md:px-0 md:py-0 md:text-sm md:normal-case md:tracking-normal">
+                    {it.sub}
+                  </span>
+                  <span className="rounded-full border border-gold/25 bg-gold/[0.07] px-3 py-1 text-[0.68rem] tracking-wide text-gold-soft transition-all md:rounded-none md:border-0 md:bg-transparent md:px-0 md:py-0 md:text-sm md:tracking-normal md:text-sage/90">
+                    {it.note}
+                  </span>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>

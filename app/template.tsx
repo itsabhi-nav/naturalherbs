@@ -1,16 +1,9 @@
-"use client";
-
-import { motion } from "framer-motion";
-
-/** App Router page transition, blur-fade on every route change. */
+/**
+ * Page shell, intentionally friction-free:
+ * renders children as-is. A client fade here was hiding the ENTIRE page
+ * server-side (opacity 0) until JS hydrated, which made every first load
+ * on a phone show a blank screen. Content now appears with the first byte.
+ */
 export default function Template({ children }: { children: React.ReactNode }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <>{children}</>;
 }

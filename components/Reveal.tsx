@@ -29,6 +29,10 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current as HTMLElement | null;
     if (!el) return;
+
+    // phones: zero choreography. everything the server sent stays visible,
+    // native scroll + instant content, nothing can ever be "missing"
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     // only elements still below the viewport actually need a reveal
