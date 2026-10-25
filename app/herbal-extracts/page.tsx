@@ -29,7 +29,7 @@ export default function HerbalExtractsPage() {
 
       <section className="py-12 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-10">
-          <EntryExplorer eyebrow="Extracts" items={items} columns="table" />
+          <EntryExplorer eyebrow="Extracts" items={items} />
         </div>
       </section>
 

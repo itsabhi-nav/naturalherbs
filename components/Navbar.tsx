@@ -104,28 +104,43 @@ export default function Navbar() {
             animate={{ opacity: 1, clipPath: "circle(150% at 90% 6%)" }}
             exit={{ opacity: 0, clipPath: "circle(0% at 90% 6%)" }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[80] flex flex-col justify-between bg-moss/98 px-8 pb-10 pt-28 backdrop-blur-xl"
+            className="fixed inset-0 z-[80] flex flex-col overflow-y-auto bg-moss/98 px-6 pb-8 pt-24 backdrop-blur-xl md:px-8"
             onClick={() => setOpen(false)}
           >
             <nav
-              className="flex flex-col gap-1"
+              className="flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              <p className="eyebrow mb-2 lg:hidden">Menu</p>
               {NAV_LINKS.map((l, i) => (
                 <motion.div
                   key={l.href}
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0, x: -24 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.12 + i * 0.05, duration: 0.5, ease: "easeOut" }}
+                  transition={{ delay: 0.1 + i * 0.05, duration: 0.45, ease: "easeOut" }}
                 >
                   <Link
                     href={l.href}
-                    className={`block py-2.5 font-[family-name:var(--font-display)] text-4xl font-medium ${
-                      pathname === l.href ? "gold-text" : "text-cream"
+                    className={`group flex items-center justify-between py-3.5 transition-colors ${
+                      i === NAV_LINKS.length - 1 ? "" : "border-b border-cream/[0.07]"
                     }`}
                   >
-                    {l.label}
+                    <span
+                      className={`font-[family-name:var(--font-display)] text-[1.45rem] leading-snug transition-colors duration-300 group-active:text-gold-soft ${
+                        pathname === l.href ? "gold-text" : "text-cream"
+                      }`}
+                    >
+                      {l.label}
+                    </span>
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-3.5 w-3.5 shrink-0 text-gold/50"
+                    >
+                      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </Link>
                 </motion.div>
               ))}
@@ -133,17 +148,17 @@ export default function Navbar() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="space-y-2 text-sm text-sage"
+              transition={{ delay: 0.45 }}
+              className="mt-8 space-y-1 text-xs text-sage"
             >
-              <p className="eyebrow">Talk to us</p>
-              <a href={BRAND.phoneIndiaHref} className="block text-cream">
+              <p className="eyebrow text-[0.58rem]">Talk to us</p>
+              <a href={BRAND.phoneIndiaHref} className="block font-medium text-cream">
                 {BRAND.phoneIndia}
               </a>
-              <a href={`mailto:${BRAND.email}`} className="block text-cream">
+              <a href={`mailto:${BRAND.email}`} className="block break-all text-cream/85">
                 {BRAND.email}
               </a>
-              <p className="pt-3 text-xs text-sage/70">{BRAND.addressIndia}</p>
+              <p className="pt-2.5 text-[0.64rem] leading-relaxed text-sage/60">{BRAND.addressIndia}</p>
             </motion.div>
           </motion.div>
         )}

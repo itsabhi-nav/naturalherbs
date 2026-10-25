@@ -24,6 +24,7 @@
   --animate-marquee: marquee 42s linear infinite;
   --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   --animate-spin-slow: spin 14s linear infinite;
+  --animate-spin-s-rev: spin-rev 14s linear infinite;
 }
 
 /* ------------------------------------------------------------------ */
@@ -147,6 +148,11 @@ body {
   100% { transform: translate3d(-3%, 3%, 0) scale(0.96); }
 }
 
+@keyframes spin-rev {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -177,7 +183,8 @@ html.lenis, html.lenis body { height: auto; }
   .animate-marquee,
   .animate-drift-slow,
   .animate-pulse-ring,
-  .animate-spin-slow {
+  .animate-spin-slow,
+  .animate-spin-s-rev {
     animation: none !important;
   }
 }

@@ -13,11 +13,13 @@ export default function Marquee({
   const row = [...words, ...words];
   return (
     <div className={`mask-fade-x overflow-hidden ${className}`}>
-      <div className="flex w-max animate-marquee items-center gap-10 whitespace-nowrap pr-10 hover:[animation-play-state:paused]">
+      {/* each unit carries its own trailing spacing so the -50% loop modulo is
+          exact: the ticker never jumps or "runs out", it rolls forever */}
+      <div className="flex w-max animate-marquee items-center">
         {row.map((w, i) => (
-          <span key={i} className="flex items-center gap-10">
+          <span key={i} className="flex items-center gap-10 pr-10">
             <span
-              className={`text-lg md:text-2xl ${
+              className={`whitespace-nowrap text-lg md:text-2xl ${
                 serif ? "font-[family-name:var(--font-display)] italic text-cream/35" : "text-sage/60"
               }`}
             >

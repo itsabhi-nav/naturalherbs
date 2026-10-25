@@ -90,7 +90,7 @@ export const SIGNATURE_RANGE = [
   {
     title: "Soapnut Shells",
     kicker: "Signature Range, 01",
-    copy: "Organic & conventional soapnut shells in bulk, trusted by brands across Europe, USA, UK and Japan.",
+    copy: "Organic & conventional soapnut shells in bulk, trusted by brands across 🇪🇺 Europe, 🇺🇸 USA, 🇬🇧 UK and 🇯🇵 Japan.",
     href: "/soapnuts",
     img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1600&auto=format&fit=crop",
   },

@@ -10,6 +10,7 @@ import SectionHeading from "@/components/SectionHeading";
 import CtaBand from "@/components/CtaBand";
 import Magnetic from "@/components/Magnetic";
 import Aurora from "@/components/Aurora";
+import FlagsOrbit from "@/components/FlagsOrbit";
 import {
   BRAND,
   STATS,
@@ -111,6 +112,8 @@ export default function HomePage() {
                 <p className="font-[family-name:var(--font-display)] text-3xl text-gold">20<span className="gold-text">+</span></p>
                 <p className="text-[0.62rem] uppercase tracking-[0.28em] text-sage">Years of legacy</p>
               </div>
+              {/* rotating world reach badge */}
+              <FlagsOrbit className="absolute -right-3 top-6 z-10 md:-right-9 md:top-2" />
             </Reveal>
           </div>
 
@@ -158,11 +161,21 @@ export default function HomePage() {
                     <div className="flex flex-1 flex-col p-5 pt-4 md:p-7 md:pt-5">
                       <h3 className="flex items-start justify-between gap-3 font-[family-name:var(--font-display)] text-xl text-cream transition-colors group-hover:text-gold-soft md:text-2xl">
                         {p.title}
+                        {/* refined vector arrow badge: frosted disc, gold hover,
+                            arrow nudges outward on hover */}
                         <span
                           aria-hidden
-                          className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-cream/15 text-[0.7rem] text-sage transition-all duration-300 group-hover:border-gold/60 group-hover:text-gold md:mt-0 md:h-9 md:w-9 md:text-sm"
+                          className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-cream/12 bg-cream/[0.03] transition-all duration-500 group-hover:border-gold/50 group-hover:bg-gold/10 md:mt-0 md:h-10 md:w-10"
                         >
-                          ↗
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            className="h-3.5 w-3.5 text-sage transition-all duration-500 group-hover:-translate-y-[1.5px] group-hover:translate-x-[1.5px] group-hover:text-gold md:h-4 md:w-4"
+                          >
+                            <path d="M7 17 17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
                         </span>
                       </h3>
                       <p className="mt-2.5 text-sm leading-relaxed text-sage md:mt-3">{p.copy}</p>

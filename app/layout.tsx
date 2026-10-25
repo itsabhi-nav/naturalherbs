@@ -4,8 +4,9 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import ScrollTop from "@/components/ScrollTop";
+import ScrollProgress from "@/components/ScrollProgress";
 import Preloader from "@/components/Preloader";
 import CursorGlow from "@/components/CursorGlow";
 import JsonLd from "@/components/JsonLd";
@@ -110,6 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>{children}</main>
           <Footer />
           <WhatsAppFloat />
+          <ScrollTop />
         </SmoothScroll>
       </body>
     </html>

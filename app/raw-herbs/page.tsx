@@ -29,7 +29,7 @@ export default function RawHerbsPage() {
 
       <section className="py-12 md:py-20">
         <div className="mx-auto max-w-7xl px-5 md:px-10">
-          <EntryExplorer eyebrow="Herbs" items={items} columns="table" />
+          <EntryExplorer eyebrow="Herbs" items={items} />
         </div>
       </section>
 
