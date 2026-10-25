@@ -10,7 +10,6 @@ import SectionHeading from "@/components/SectionHeading";
 import CtaBand from "@/components/CtaBand";
 import Magnetic from "@/components/Magnetic";
 import Aurora from "@/components/Aurora";
-import FlagsOrbit from "@/components/FlagsOrbit";
 import {
   BRAND,
   STATS,
@@ -41,6 +40,20 @@ function StatBlock() {
 }
 
 /* -------------------------------- page -------------------------------- */
+
+/* globe pills: NE, NW, SE, SW corners of the trust globe at ~92% radius */
+const GLOBE_PILLS = [
+  { f: "🇺🇸", t: "USA" },
+  { f: "🇪🇺", t: "Europe" },
+  { f: "🇯🇵", t: "Japan" },
+  { f: "🇬🇧", t: "UK" },
+];
+const GLOBE_POS = [
+  "left-[17.5%] top-[17.5%] -translate-x-1/2 -translate-y-1/2",
+  "left-[82.5%] top-[17.5%] -translate-x-1/2 -translate-y-1/2",
+  "left-[82.5%] top-[82.5%] -translate-x-1/2 -translate-y-1/2",
+  "left-[17.5%] top-[82.5%] -translate-x-1/2 -translate-y-1/2",
+];
 
 export default function HomePage() {
   return (
@@ -112,8 +125,6 @@ export default function HomePage() {
                 <p className="font-[family-name:var(--font-display)] text-3xl text-gold">20<span className="gold-text">+</span></p>
                 <p className="text-[0.62rem] uppercase tracking-[0.28em] text-sage">Years of legacy</p>
               </div>
-              {/* rotating world reach badge */}
-              <FlagsOrbit className="absolute -right-3 top-6 z-10 md:-right-9 md:top-2" />
             </Reveal>
           </div>
 
@@ -446,7 +457,8 @@ export default function HomePage() {
             {/* orbiting globe-ish visual */}
             <Reveal delay={0.15} className="relative mx-auto aspect-square w-full max-w-[19rem] md:max-w-md">
               <div className="absolute inset-0 rounded-full border border-cream/10" />
-              <div className="absolute inset-[12%] rounded-full border border-dashed border-gold/25" />
+              {/* dashed ring slowly spins — the whole globe feels alive */}
+              <div className="absolute inset-[12%] animate-spin-slow rounded-full border border-dashed border-gold/25" />
               <div className="absolute inset-[26%] rounded-full border border-cream/8" />
               <div className="absolute inset-0 grid place-items-center">
                 <div className="glass grid place-items-center rounded-full text-center h-28 w-28 md:h-40 md:w-40">
@@ -456,22 +468,20 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              {/* satellites, typographic, not capsules */}
-              {[
-                { t: "Europe", c: "left-[6%] top-[16%]", d: "0s" },
-                { t: "USA", c: "right-[4%] top-[34%]", d: "-4s" },
-                { t: "UK", c: "left-[12%] bottom-[14%]", d: "-8s" },
-                { t: "Japan", c: "right-[10%] bottom-[8%]", d: "-6s" },
-              ].map((s) => (
-                <p
-                  key={s.t}
-                  className={`absolute ${s.c} animate-drift-slow flex items-center gap-2 text-[0.62rem] font-medium uppercase tracking-[0.3em] text-cream/85 md:text-[0.68rem]`}
-                  style={{ animationDuration: "18s", animationDelay: s.d }}
-                >
-                  <span className="h-1 w-4 bg-gold/80" />
-                  {s.t}
-                </p>
-              ))}
+              {/* orbiting country pills: the ring turns slowly and every pill
+                  counter-rotates in sync, so labels stay upright while they
+                  glide around the globe. 92% radius keeps pills clear of
+                  screen edges on phones. */}
+              <div className="absolute inset-0 animate-spin-slow">
+                {GLOBE_PILLS.map((s, i) => (
+                  <div key={s.t} className={`absolute ${GLOBE_POS[i]}`}>
+                    <div className="animate-spin-s-rev glass flex items-center gap-2 rounded-full border border-cream/10 px-2.5 py-1.5 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-cream/90 md:px-3 md:text-[0.66rem]">
+                      <span aria-hidden className="text-[0.95rem] leading-none">{s.f}</span>
+                      {s.t}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </Reveal>
           </div>
         </div>
