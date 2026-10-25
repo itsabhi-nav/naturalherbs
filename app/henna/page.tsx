@@ -1,0 +1,123 @@
+import type { Metadata } from "next";
+import PageHero from "@/components/PageHero";
+import Reveal from "@/components/Reveal";
+import SmartImage from "@/components/SmartImage";
+import SectionHeading from "@/components/SectionHeading";
+import CtaBand from "@/components/CtaBand";
+import JsonLd from "@/components/JsonLd";
+import { SITE_URL, breadcrumb } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Henna & Indigo Powder Export, Natural Hair Colour",
+  description:
+    "Herbal henna with deep, long-lasting colour, conditioning, strengthening, chemical-free. Plus premium Indigo powder exported to renowned brands worldwide, natural hair dye supplier India.",
+  alternates: { canonical: `${SITE_URL}/henna` },
+};
+
+const HENNA_FEATURES = [
+  { t: "Deep, long-lasting colour", c: "Rich release that holds wash after wash." },
+  { t: "Conditions the scalp", c: "A natural conditioner with every application." },
+  { t: "Strengthens hair", c: "Hair feels thicker, smoother, resilient." },
+  { t: "Prevents dandruff", c: "Botanical care that keeps flakes away." },
+  { t: "100% natural", c: "Zero chemicals, safe, pure application." },
+];
+
+export default function HennaPage() {
+  return (
+    <>
+      <JsonLd id="ld-henna-bc" data={breadcrumb([{ name: "Henna & Indigo", path: "/henna" }])} />
+      <PageHero
+        eyebrow="Henna"
+        title="Herbal henna & indigo"
+        copy="NaturalHerbs herbal henna offers deep, long-lasting colour while conditioning the scalp, strengthening hair and preventing dandruff, crafted with 100% natural ingredients for safe, chemical-free application."
+        img="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=2400&auto=format&fit=crop"
+      />
+
+      {/* Henna panel */}
+      <section className="py-12 md:py-20">
+        <div className="mx-auto max-w-7xl px-5 md:px-10">
+          <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+            <Reveal>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-cream/10">
+                <SmartImage
+                  src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1400&auto=format&fit=crop"
+                  alt="Herbal henna leaves"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-[2.5s] hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-bark/70 to-transparent" />
+                <div className="glass absolute bottom-6 left-6 right-6 rounded-2xl p-5">
+                  <p className="font-[family-name:var(--font-display)] text-xl">Lawsonia inermis</p>
+                  <p className="text-xs uppercase tracking-[0.25em] text-sage">Natural henna, premium grade</p>
+                </div>
+              </div>
+            </Reveal>
+            <div>
+              <SectionHeading eyebrow="Herbal henna" title={<>Nature’s <span className="gold-text italic">hair dye</span></>} />
+              <div className="mt-10 space-y-3">
+                {HENNA_FEATURES.map((f, i) => (
+                  <Reveal key={f.t} delay={i * 0.07}>
+                    <div className="group flex items-start gap-4 rounded-2xl border border-cream/8 bg-pine px-6 py-4 transition-colors duration-300 hover:border-gold/30">
+                      <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-gold/40 text-[0.6rem] text-gold">
+                        ✦
+                      </span>
+                      <div>
+                        <p className="text-cream">{f.t}</p>
+                        <p className="text-sm text-sage">{f.c}</p>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Indigo panel */}
+      <section className="relative border-t border-cream/8 bg-moss/60 py-12 md:py-20">
+        <div className="mx-auto max-w-7xl px-5 md:px-10">
+          <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+            <div className="order-2 lg:order-1">
+              <SectionHeading eyebrow="Indigo" title={<>The <span className="gold-text italic">pioneer</span> of deep blue</>} />
+              <Reveal delay={0.2}>
+                <p className="mt-7 max-w-lg text-lg leading-relaxed text-sage">
+                  NaturalHerbs is the ultimate pioneer in exporting the highest quality Indigo Powder to renowned
+                  brands worldwide, with an unmatched commitment to purity and deep, long-lasting colour.
+                </p>
+              </Reveal>
+              <Reveal delay={0.28}>
+                <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
+                  {["Indigofera tinctoria", "Single-origin crop", "Stone-ground purity"].map((b) => (
+                    <div key={b} className="rounded-2xl border border-cream/8 bg-bark px-5 py-4 text-sm text-cream/90">
+                      {b}
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+            <Reveal className="order-1 lg:order-2">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-cream/10">
+                <SmartImage
+                  src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1400&auto=format&fit=crop"
+                  alt="Indigo powder"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-[2.5s] hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-bark/70 to-transparent" />
+                <div className="glass absolute bottom-6 left-6 right-6 rounded-2xl p-5">
+                  <p className="font-[family-name:var(--font-display)] text-xl">Indigofera tinctoria</p>
+                  <p className="text-xs uppercase tracking-[0.25em] text-sage">Indigo powder, export grade</p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand title="Ask for a henna sample" copy="Bulk packs, private labelling and export documentation, all available." />
+    </>
+  );
+}

@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens — Dark Botanical Luxe                                */
+/* ------------------------------------------------------------------ */
+
+@theme inline {
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+@theme {
+  --color-bark: #04100b; /* canvas base          */
+  --color-moss: #081a13; /* raised panels        */
+  --color-pine: #0d261c; /* cards                */
+  --color-fern: #16352a; /* borders / fills      */
+  --color-cream: #f2eede; /* primary text         */
+  --color-sage: #9db3a4; /* secondary text       */
+  --color-gold: #c9a968; /* accent               */
+  --color-gold-soft: #e4cf9e;
+  --color-leaf: #7db98a; /* living green accent  */
+
+  --animate-drift-slow: drift 26s ease-in-out infinite alternate;
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #16352a #04100b;
+}
+
+body {
+  background: var(--color-bark);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: #c9a968;
+  color: #04100b;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #04100b;
+}
+::-webkit-scrollbar-thumb {
+  background: #16352a;
+  border-radius: 8px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+
+.glass {
+  background: color-mix(in srgb, var(--color-cream) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-cream) 9%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.hairline {
+  border-color: color-mix(in srgb, var(--color-cream) 10%, transparent);
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-cream) 22%, transparent);
+  color: transparent;
+}
+
+.gold-text {
+  background: linear-gradient(100deg, #e4cf9e 0%, #c9a968 45%, #f4e8c8 78%, #c9a968 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Keyframes                                                          */
+/* ------------------------------------------------------------------ */
+
+@keyframes drift {
+  0%   { transform: translate3d(-6%, -4%, 0) scale(1); }
+  50%  { transform: translate3d(5%, 7%, 0) scale(1.12); }
+  100% { transform: translate3d(-3%, 3%, 0) scale(0.96); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(125, 185, 138, 0.45); }
+  70%  { box-shadow: 0 0 0 16px rgba(125, 185, 138, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(125, 185, 138, 0); }
+}
+
+.mask-fade-y {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-drift-slow,
+  .animate-pulse-ring,
+  .animate-spin-slow {
+    animation: none !important;
+  }
+}
