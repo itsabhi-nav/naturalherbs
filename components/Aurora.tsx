@@ -13,7 +13,7 @@ export default function Aurora({ variant = "default" }: { variant?: "default" | 
         ];
 
   return (
-    <div aria-hidden className="pointer-events-none isolate absolute inset-0 overflow-hidden">
+    <div aria-hidden className="aurora pointer-events-none isolate absolute inset-0 overflow-hidden">
       {blobs.map((c, i) => (
         <div
           key={i}

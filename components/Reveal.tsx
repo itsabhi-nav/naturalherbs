@@ -43,9 +43,12 @@ export default function Reveal({
       const io = new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
-            if (e.isIntersecting) {
-              (e.target as HTMLElement).dataset.rvShow = "";
-              io.unobserve(e.target);
+            const el = e.target as HTMLElement;
+            if (e.isIntersecting || e.boundingClientRect.bottom < 0) {
+              // visible now, or the user already scrolled past it: show
+              // instantly, never trap fast-scrolled content in a ghost hide
+              el.dataset.rvShow = "";
+              io.unobserve(el);
             }
           }
         },

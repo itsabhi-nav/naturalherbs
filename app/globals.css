@@ -187,4 +187,15 @@ html.lenis, html.lenis body { height: auto; }
   .animate-spin-s-rev {
     animation: none !important;
   }
+  .aurora {
+    display: none;
+  }
+}
+
+/* continuous 110px-blur blob animations melt phone GPUs and stall scrolling;
+   phones get the clean static look */
+@media (pointer: coarse) {
+  .aurora {
+    display: none !important;
+  }
 }
