@@ -1,14 +1,16 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-
-const FINE = () =>
-  typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches;
+import { useEffect, useRef } from "react";
 
 /**
- * Scroll-triggered reveal wrapper: fade + rise (+ de-blur on desktop).
- * On touch devices we skip the blur filter, it is costly on phone GPUs
- * and causes the "freeze for a second" feel on cheaper phones.
+ * Scroll-triggered reveal, rebuilt for phones:
+ *  - server renders content FULLY VISIBLE (no framer initial-hidden SSR),
+ *    so there is never a blank page before hydration
+ *  - after mount, only elements sitting below the viewport get pre-hidden
+ *    one frame, then a tiny IntersectionObserver fades them in with plain
+ *    CSS transitions (GPU cheap, no framer on the hot path)
+ *  - reduced-motion users just see plain content
+ * Props are dropped-in compatible with the old framer Reveal.
  */
 export default function Reveal({
   children,
@@ -21,29 +23,38 @@ export default function Reveal({
   className?: string;
   as?: "div" | "section" | "li" | "span";
 }) {
-  const variants: Variants = {
-    hidden: FINE()
-      ? { opacity: 0, y: 28, filter: "blur(6px)" }
-      : { opacity: 0, y: 18 },
-    show: (d: number = 0) => ({
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.9, delay: d, ease: [0.22, 1, 0.36, 1] },
-    }),
-  };
+  const ref = useRef<HTMLElement | null>(null);
+  const Tag = as as React.ElementType;
 
-  const Comp = motion[as] as typeof motion.div;
+  useEffect(() => {
+    const el = ref.current as HTMLElement | null;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // only elements still below the viewport actually need a reveal
+    if (el.getBoundingClientRect().top > window.innerHeight * 0.9) {
+      el.classList.add("rv-hidden");
+      el.style.setProperty("--rvd", `${Math.round(delay * 1000)}ms`);
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              (e.target as HTMLElement).dataset.rvShow = "";
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { rootMargin: "0px 0px -10% 0px" }
+      );
+      io.observe(el);
+      return () => io.disconnect();
+    }
+  }, [delay]);
+
   return (
-    <Comp
-      className={className}
-      variants={variants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-12% 0px" }}
-      custom={delay}
-    >
+    <Tag ref={ref} className={className}>
       {children}
-    </Comp>
+    </Tag>
   );
 }

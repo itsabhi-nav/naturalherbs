@@ -4,17 +4,18 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 
 /**
- * Buttery inertial scrolling (Lenis) + in-page anchor handling,
- * wired to run once around the whole app.
+ * Buttery inertial scrolling (Lenis) on desktop only.
+ * On touch devices native scroll is left completely alone, phones get
+ * zero scroll interference, no third-party raf loop, no jank possible.
+ * Also handles in-page anchors on desktop.
  */
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return; // phones: native
+
     const lenis = new Lenis({
       lerp: 0.09,
       wheelMultiplier: 1.02,
-      // phone pe native touch scroll hi rakhna hai (Lenis sirf wheel ko smooth
-      // karta hai), warna iOS/Android pe scrollResponsiveness issue aata hai
-      syncTouch: false,
     });
 
     let raf = 0;
