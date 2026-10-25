@@ -7,21 +7,15 @@ import Image from "next/image";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 /**
- * One-time cinematic intro: brand mark bleeds in, a counter races to 100,
- * then the whole curtain lifts. Plays once per browser session.
- *
- * Mobile safety rules:
- *  - unlock NEVER depends on requestAnimationFrame (rAF freezes in
- *    background tabs / iOS prefetch), a hard watchdog timer guarantees it
- *  - the curtain is pointer-events-none, so nothing stays click-blocked
- *  - reduced-motion users skip it entirely
- *  - touch devices get a shorter intro
+ * One-time cinematic intro curtain. Purely cosmetic:
+ *  - page scroll & taps are NEVER locked, no time barrier whatsoever
+ *  - it is pointer-events-none, exits fast, and a hard timer drives it
+ *  - plays once per browser session, skipped for reduced-motion users
  */
 export default function Preloader() {
   const [show, setShow] = useState(false);
   const [pct, setPct] = useState(0);
   const raf = useRef(0);
-  const unlocked = useRef(false);
 
   useEffect(() => {
     let done = false;
@@ -29,14 +23,7 @@ export default function Preloader() {
     const finish = () => {
       if (done) return;
       done = true;
-      unlocked.current = true;
       setShow(false);
-      document.documentElement.style.overflow = "";
-      try {
-        sessionStorage.setItem("nh-intro", "1");
-      } catch {
-        /* noop */
-      }
     };
 
     let reduced = false;
@@ -46,31 +33,33 @@ export default function Preloader() {
     } catch {
       /* private mode, still show once */
     }
-    if (reduced) return; // respect reduced-motion, no curtain at all
+    if (reduced) return; // reduced-motion: no curtain at all
 
     setShow(true);
-    document.documentElement.style.overflow = "hidden";
+    try {
+      // flag set upfront: navigating away mid-curtain never replays the intro
+      sessionStorage.setItem("nh-intro", "1");
+    } catch {
+      /* noop */
+    }
 
     const coarse = window.matchMedia("(pointer: coarse)").matches;
-    const dur = coarse ? 1100 : 1500;
+    const dur = coarse ? 700 : 1100;
 
+    // counter driven by raf purely for looks; completion is a hard timer,
+    // so laggy/throttled tabs can never trap the page in a frozen state
     const start = performance.now();
     const tick = (t: number) => {
       const p = Math.min(1, (t - start) / dur);
-      // ease-out curve so the counter feels physical
       setPct(Math.round((1 - Math.pow(1 - p, 3)) * 100));
       if (p < 1) raf.current = requestAnimationFrame(tick);
-      else window.setTimeout(finish, 250);
     };
     raf.current = requestAnimationFrame(tick);
-
-    // watchdog: even if rAF is frozen (background tab), unlock always fires
-    const watchdog = window.setTimeout(finish, dur + 600);
+    const watchdog = window.setTimeout(finish, dur + 150);
 
     return () => {
       cancelAnimationFrame(raf.current);
       window.clearTimeout(watchdog);
-      if (!unlocked.current) document.documentElement.style.overflow = "";
     };
   }, []);
 
@@ -81,7 +70,7 @@ export default function Preloader() {
           aria-hidden
           initial={{ clipPath: "inset(0% 0% 0% 0%)" }}
           exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
-          transition={{ duration: 0.85, ease }}
+          transition={{ duration: 0.55, ease }}
           className="grain pointer-events-none fixed inset-0 z-[200] grid place-items-center bg-bark"
         >
           {/* ambient glow */}
@@ -92,7 +81,7 @@ export default function Preloader() {
               className="relative h-16 w-16 overflow-hidden rounded-full border border-gold/30 bg-white shadow-[0_0_60px_rgba(201,169,104,0.25)]"
               initial={{ opacity: 0, scale: 0.6, rotate: -12 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.9, ease }}
+              transition={{ duration: 0.7, ease }}
             >
               <Image
                 src="/logo-mark.png"
@@ -107,7 +96,7 @@ export default function Preloader() {
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease, delay: 0.15 }}
+              transition={{ duration: 0.7, ease, delay: 0.1 }}
             >
               <p className="font-[family-name:var(--font-display)] text-3xl tracking-tight text-cream md:text-4xl">
                 NaturalHerbs

@@ -39,6 +39,12 @@ export default function EntryExplorer({
 }) {
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState("All");
+  // layout animations (re-measure + FLIP across 60 rows) cost real GPU time
+  // on phones, keep them desktop-only and let phones do simple fades
+  const fine = useMemo(
+    () => typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches,
+    []
+  );
 
   const cats = useMemo(() => {
     const present = new Map<string, number>();
@@ -110,12 +116,12 @@ export default function EntryExplorer({
           <AnimatePresence mode="popLayout">
             {filtered.map((it, i) => (
               <motion.article
-                layout
+                layout={fine ? true : undefined}
                 key={it.name + it.sub}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.45, delay: Math.min(i * 0.03, 0.4), ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={fine ? { duration: 0.45, delay: Math.min(i * 0.03, 0.4), ease: [0.22, 1, 0.36, 1] } : { duration: 0.25 }}
                 className="group relative overflow-hidden rounded-2xl border border-cream/8 bg-pine p-6 transition-colors duration-300 hover:border-gold/30"
               >
                 <div
@@ -137,22 +143,26 @@ export default function EntryExplorer({
           <AnimatePresence mode="popLayout">
             {filtered.map((it, i) => (
               <motion.div
-                layout
+                layout={fine ? true : undefined}
                 key={it.name + it.sub}
-                initial={{ opacity: 0, x: -24 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, delay: Math.min(i * 0.02, 0.35), ease: [0.22, 1, 0.36, 1] }}
-                className="group grid grid-cols-[2.6rem_1fr] items-baseline gap-4 rounded-xl border border-transparent px-4 py-4 transition-all duration-300 hover:border-cream/10 hover:bg-cream/[0.03] md:grid-cols-[3.4rem_1.4fr_1fr_1.2fr] md:gap-6"
+                transition={fine ? { duration: 0.4, delay: Math.min(i * 0.02, 0.35), ease: [0.22, 1, 0.36, 1] } : { duration: 0.25 }}
+                className="group grid grid-cols-[2.6rem_1fr] gap-x-4 gap-y-1 items-baseline rounded-xl border border-transparent px-4 py-4 transition-all duration-300 hover:border-cream/10 hover:bg-cream/[0.03] md:grid-cols-[3.4rem_1.4fr_1fr_1.2fr] md:gap-6"
               >
                 <span className="font-[family-name:var(--font-display)] text-lg text-gold/70 transition-colors group-hover:text-gold">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="font-[family-name:var(--font-display)] text-xl text-cream transition-colors group-hover:text-gold-soft">
+                <h3 className="min-w-0 font-[family-name:var(--font-display)] text-xl leading-snug text-cream transition-colors group-hover:text-gold-soft">
                   {it.name}
                 </h3>
-                <p className="text-sm text-sage">{it.sub}</p>
-                <p className="col-start-2 text-sm text-sage/90 md:col-start-4">{it.note}</p>
+                <p className="col-span-2 min-w-0 text-sm leading-relaxed text-sage md:col-span-1 md:leading-normal">
+                  {it.sub}
+                </p>
+                <p className="col-span-2 min-w-0 text-sm leading-relaxed text-sage/90 md:col-span-1 md:leading-normal">
+                  {it.note}
+                </p>
               </motion.div>
             ))}
           </AnimatePresence>
