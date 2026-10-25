@@ -36,8 +36,8 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         className={`fixed inset-x-0 top-0 z-[90] border-b transition-all duration-500 ${
           scrolled
-            ? "border-cream/10 bg-bark/85 shadow-[0_8px_40px_rgba(0,0,0,0.4)] backdrop-blur-xl"
-            : "border-transparent bg-transparent"
+            ? "border-cream/10 bg-bark/85 py-3 shadow-[0_8px_40px_rgba(0,0,0,0.4)] backdrop-blur-xl"
+            : "border-transparent bg-transparent py-5"
         }`}
       >
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 md:px-10">
