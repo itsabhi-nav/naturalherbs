@@ -9,7 +9,13 @@ import Lenis from "lenis";
  */
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1.02 });
+    const lenis = new Lenis({
+      lerp: 0.09,
+      wheelMultiplier: 1.02,
+      // phone pe native touch scroll hi rakhna hai (Lenis sirf wheel ko smooth
+      // karta hai), warna iOS/Android pe scrollResponsiveness issue aata hai
+      syncTouch: false,
+    });
 
     let raf = 0;
     const loop = (time: number) => {
