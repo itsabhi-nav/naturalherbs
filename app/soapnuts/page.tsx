@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import TiltCard from "@/components/TiltCard";
 import SmartImage from "@/components/SmartImage";
-import Marquee from "@/components/Marquee";
 import CtaBand from "@/components/CtaBand";
-import Magnetic from "@/components/Magnetic";
 import JsonLd from "@/components/JsonLd";
 import { SOAPNUT_SERVICES, SOAPNUT_CONCENTRATES, SOAPNUT_LEGACY } from "@/lib/data";
 import { SITE_URL, breadcrumb, itemBuilder } from "@/lib/seo";
@@ -21,8 +18,10 @@ export const metadata: Metadata = {
 function Check({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-start gap-3 text-sm leading-relaxed text-sage">
-      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-leaf/40 text-[0.6rem] text-leaf">
-        ✦
+      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-leaf/10">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3 w-3 text-leaf">
+          <path d="m5 12.5 4.5 4.5L19 7.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </span>
       {children}
     </li>
@@ -38,7 +37,6 @@ export default function SoapnutsPage() {
         eyebrow="Soapnuts Export"
         title="Sustainable soapnut solutions"
         copy="Since 2005 we've been a leading soapnut exporter, delivering best-in-class solutions to bulk clients worldwide, with quality, reliability and customer satisfaction at the core."
-        img="https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=2400&auto=format&fit=crop"
       />
 
       {/* Business services */}
@@ -46,36 +44,33 @@ export default function SoapnutsPage() {
         <div className="mx-auto max-w-7xl px-5 md:px-10">
           <Reveal className="mb-10 md:mb-14">
             <p className="eyebrow mb-4">Business services</p>
-            <h2 className="max-w-2xl font-[family-name:var(--font-display)] text-3xl leading-[1.08] tracking-tight md:text-6xl">
-              What we ship, <span className="gold-text italic">at scale</span>
+            <h2 className="max-w-2xl text-3xl font-bold leading-[1.1] tracking-tight md:text-5xl">
+              What we ship, <span className="gold-text">at scale</span>
             </h2>
           </Reveal>
           <div className="grid gap-5 md:grid-cols-3">
             {SOAPNUT_SERVICES.map((s, i) => (
-              <Reveal key={s.title} delay={i * 0.1}>
-                <TiltCard className="h-full" max={4}>
-                  <article className="group h-full overflow-hidden rounded-3xl border border-cream/8 bg-pine transition-colors duration-500 hover:border-gold/30">
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      <SmartImage
-                        src={s.img}
-                        alt={s.title}
-                        fill
-                        sizes="(min-width:768px) 33vw, 100vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-pine via-pine/25 to-transparent" />
-                      <span className="absolute right-4 top-4 font-[family-name:var(--font-display)] text-sm text-cream/85">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <div className="p-6 md:p-8">
-                      <h3 className="font-[family-name:var(--font-display)] text-2xl text-cream md:text-3xl">
-                        {s.title}
-                      </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-sage">{s.copy}</p>
-                    </div>
-                  </article>
-                </TiltCard>
+              <Reveal key={s.title} delay={i * 0.1} className="h-full">
+                <article className="group h-full overflow-hidden rounded-2xl border border-fern bg-pine transition-colors duration-300 hover:border-gold/50">
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <SmartImage
+                      src={s.img}
+                      alt={s.title}
+                      fill
+                      sizes="(min-width:768px) 33vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute right-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-cream">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div className="p-6 md:p-8">
+                    <h3 className="text-xl font-bold text-cream md:text-2xl">
+                      {s.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-sage">{s.copy}</p>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>
@@ -89,7 +84,7 @@ export default function SoapnutsPage() {
             <Reveal>
               <div>
                 <p className="eyebrow mb-4">About us</p>
-                <h3 className="mb-4 font-[family-name:var(--font-display)] text-3xl text-cream md:text-4xl">
+                <h3 className="mb-4 text-2xl font-bold text-cream md:text-3xl">
                   Export of soapnut products
                 </h3>
                 <p className="leading-relaxed text-sage">
@@ -144,17 +139,15 @@ export default function SoapnutsPage() {
                     </span>
                   </div>
                   <div className="bg-pine p-7">
-                    <h4 className="font-[family-name:var(--font-display)] text-2xl text-cream">{c.title}</h4>
+                    <h4 className="text-xl font-bold text-cream md:text-2xl">{c.title}</h4>
                     <p className="mt-3 text-sm leading-relaxed text-sage">{c.copy}</p>
-                    <Magnetic strength={0.2} className="mt-6">
-                      <Link
-                        href={`mailto:naturalherbs555@gmail.com?subject=${encodeURIComponent(`COA / MSDS request, ${c.title}`)}`}
-                        className="group inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-gold-soft transition-colors hover:text-gold"
-                      >
-                        Contact now
-                        <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-                      </Link>
-                    </Magnetic>
+                    <Link
+                      href={`mailto:naturalherbs555@gmail.com?subject=${encodeURIComponent(`COA / MSDS request, ${c.title}`)}`}
+                      className="group mt-6 inline-flex items-center gap-2 text-[0.75rem] font-bold uppercase tracking-[0.14em] text-gold transition-colors hover:text-gold-soft"
+                    >
+                      Contact now
+                      <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
+                    </Link>
                   </div>
                 </article>
               </Reveal>
@@ -163,11 +156,16 @@ export default function SoapnutsPage() {
         </div>
       </section>
 
-      {/* Legacy marquee */}
-      <section className="grain relative flex flex-col items-center gap-8 overflow-hidden py-12 md:py-20">
+      {/* Legacy statement */}
+      <section className="flex flex-col items-center gap-8 border-t border-fern bg-moss/60 py-12 md:py-20">
         <p className="eyebrow">Shaping mastery</p>
-        <Marquee words={SOAPNUT_LEGACY} serif className="opacity-90" />
-        <Marquee words={[...SOAPNUT_LEGACY].reverse()} serif className="opacity-40 [animation-direction:reverse]" />
+        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-8 gap-y-4 text-center">
+          {SOAPNUT_LEGACY.map((w) => (
+            <span key={w} className="text-2xl font-bold text-cream/80 md:text-4xl">
+              {w}
+            </span>
+          ))}
+        </div>
       </section>
 
       <CtaBand

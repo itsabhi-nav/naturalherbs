@@ -1,30 +1,25 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens — Dark Botanical Luxe                                */
+/*  Design tokens — Light Botanical                                    */
+/*  Typography: Arial only. No external font imports.                  */
 /* ------------------------------------------------------------------ */
 
 @theme inline {
-  --font-display: var(--font-fraunces), "Georgia", serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 @theme {
-  --color-bark: #04100b; /* canvas base          */
-  --color-moss: #081a13; /* raised panels        */
-  --color-pine: #0d261c; /* cards                */
-  --color-fern: #16352a; /* borders / fills      */
-  --color-cream: #f2eede; /* primary text         */
-  --color-sage: #9db3a4; /* secondary text       */
-  --color-gold: #c9a968; /* accent               */
-  --color-gold-soft: #e4cf9e;
-  --color-leaf: #7db98a; /* living green accent  */
-
-  --animate-drift-slow: drift 26s ease-in-out infinite alternate;
-  --animate-marquee: marquee 42s linear infinite;
-  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  --animate-spin-slow: spin 14s linear infinite;
-  --animate-spin-s-rev: spin-rev 14s linear infinite;
+  --color-bark: #faf9f5; /* page canvas          */
+  --color-moss: #f2f0e9; /* alternate sections   */
+  --color-pine: #ffffff; /* cards                */
+  --color-fern: #e5e2d8; /* borders / fills      */
+  --color-cream: #1e2b22; /* primary text (ink)   */
+  --color-sage: #5c6b60; /* secondary text       */
+  --color-gold: #2e6b45; /* green accent         */
+  --color-gold-soft: #245436; /* deep green hover   */
+  --color-leaf: #3e8552; /* fresh green accent   */
 }
 
 /* ------------------------------------------------------------------ */
@@ -32,8 +27,9 @@
 /* ------------------------------------------------------------------ */
 
 html {
+  scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: #16352a #04100b;
+  scrollbar-color: #c9c5b6 #f2f0e9;
 }
 
 body {
@@ -45,63 +41,38 @@ body {
 }
 
 ::selection {
-  background: #c9a968;
-  color: #04100b;
+  background: #2e6b45;
+  color: #ffffff;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #04100b;
+  background: #f2f0e9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #16352a;
+  background: #c9c5b6;
   border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a494;
 }
 
 /* ------------------------------------------------------------------ */
 /*  Utilities                                                          */
 /* ------------------------------------------------------------------ */
 
+/* soft frosted card (was a dark glass effect) */
 .glass {
-  background: color-mix(in srgb, var(--color-cream) 4%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-cream) 9%, transparent);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(30, 43, 34, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .hairline {
-  border-color: color-mix(in srgb, var(--color-cream) 10%, transparent);
-}
-
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.5;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
-}
-
-/* fullscreen blend layers melt phone GPUs, imagery already carries texture */
-@media (pointer: coarse) {
-  .grain::after {
-    display: none;
-  }
-}
-
-/* phones: hero renders fully visible on first paint. The JS entrance
-   animations are desktop-only, so a slow phone never shows a dark hero */
-@media (pointer: coarse) {
-  .hero .eyebrow,
-  .hero h1 span.overflow-hidden > span,
-  .hero p.mt-6,
-  .hero div.mt-10 {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+  border-color: rgba(30, 43, 34, 0.1);
 }
 
 /* IntersectionObserver-driven reveal: class-based, no framer on hot path */
@@ -113,27 +84,21 @@ body {
   opacity: 1;
   transform: none;
   transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--rvd, 0ms);
   will-change: opacity, transform;
 }
 
-.text-outline {
-  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-cream) 22%, transparent);
-  color: transparent;
-}
-
+/* "gold-text" is now a clean solid accent — no gradient text */
 .gold-text {
-  background: linear-gradient(100deg, #e4cf9e 0%, #c9a968 45%, #f4e8c8 78%, #c9a968 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-gold);
 }
 
 .eyebrow {
-  font-size: 0.72rem;
-  letter-spacing: 0.32em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-gold);
 }
@@ -142,60 +107,13 @@ body {
 /*  Keyframes                                                          */
 /* ------------------------------------------------------------------ */
 
-@keyframes drift {
-  0%   { transform: translate3d(-6%, -4%, 0) scale(1); }
-  50%  { transform: translate3d(5%, 7%, 0) scale(1.12); }
-  100% { transform: translate3d(-3%, 3%, 0) scale(0.96); }
-}
-
-@keyframes spin-rev {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(-360deg); }
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes pulse-ring {
-  0%   { box-shadow: 0 0 0 0 rgba(125, 185, 138, 0.45); }
-  70%  { box-shadow: 0 0 0 16px rgba(125, 185, 138, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(125, 185, 138, 0); }
-}
-
-.mask-fade-y {
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
-}
-
-.mask-fade-x {
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-/* Lenis */
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
-  .animate-drift-slow,
-  .animate-pulse-ring,
-  .animate-spin-slow,
-  .animate-spin-s-rev {
-    animation: none !important;
+  html {
+    scroll-behavior: auto;
   }
-  .aurora {
-    display: none;
-  }
-}
-
-/* continuous 110px-blur blob animations melt phone GPUs and stall scrolling;
-   phones get the clean static look */
-@media (pointer: coarse) {
-  .aurora {
-    display: none !important;
+  .rv-hidden {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

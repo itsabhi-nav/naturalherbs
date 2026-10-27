@@ -24,10 +24,9 @@ export default function RawHerbsPage() {
         eyebrow="The Raw Herbs"
         title="Raw medicinal herbs & powders"
         copy="Sourced directly from their place of origin, each batch is carefully selected and exported to ensure lasting freshness, from Ayurvedic classics to modern superfoods."
-        img="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=2400&auto=format&fit=crop"
       />
 
-      <section className="py-12 md:py-20">
+      <section className="pb-12 pt-0 md:pb-20">
         <div className="mx-auto max-w-7xl px-5 md:px-10">
           <EntryExplorer eyebrow="Herbs" items={items} />
         </div>

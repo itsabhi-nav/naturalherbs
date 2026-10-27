@@ -30,7 +30,6 @@ export default function HennaPage() {
         eyebrow="Henna"
         title="Herbal henna & indigo"
         copy="NaturalHerbs herbal henna offers deep, long-lasting colour while conditioning the scalp, strengthening hair and preventing dandruff, crafted with 100% natural ingredients for safe, chemical-free application."
-        img="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=2400&auto=format&fit=crop"
       />
 
       {/* Henna panel */}
@@ -38,32 +37,44 @@ export default function HennaPage() {
         <div className="mx-auto max-w-7xl px-5 md:px-10">
           <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
             <Reveal>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-cream/10">
-                <SmartImage
-                  src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1400&auto=format&fit=crop"
-                  alt="Herbal henna leaves"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-[2.5s] hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-bark/70 to-transparent" />
-                <div className="glass absolute bottom-6 left-6 right-6 rounded-2xl p-5">
-                  <p className="font-[family-name:var(--font-display)] text-xl">Lawsonia inermis</p>
-                  <p className="text-xs uppercase tracking-[0.25em] text-sage">Natural henna, premium grade</p>
+              <figure className="overflow-hidden rounded-2xl border border-fern bg-pine">
+                <div className="relative aspect-[4/3]">
+                  <SmartImage
+                    src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=1400&auto=format&fit=crop"
+                    alt="Herbal henna leaves"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
                 </div>
-              </div>
+                <figcaption className="flex items-center justify-between gap-4 border-t border-fern p-5">
+                  <div>
+                    <p className="font-bold text-cream">Lawsonia inermis</p>
+                    <p className="mt-0.5 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-sage">
+                      Natural henna, premium grade
+                    </p>
+                  </div>
+                  <span aria-hidden className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold/10 text-gold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4">
+                      <path d="M12 3c-3.5 2-6 4.5-6 8a6 6 0 0 0 12 0c0-3.5-2.5-6-6-8Z" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </figcaption>
+              </figure>
             </Reveal>
             <div>
-              <SectionHeading eyebrow="Herbal henna" title={<>Nature’s <span className="gold-text italic">hair dye</span></>} />
+              <SectionHeading eyebrow="Herbal henna" title={<>Nature's <span className="gold-text">hair dye</span></>} />
               <div className="mt-10 space-y-3">
                 {HENNA_FEATURES.map((f, i) => (
                   <Reveal key={f.t} delay={i * 0.07}>
-                    <div className="group flex items-start gap-4 rounded-2xl border border-cream/8 bg-pine px-6 py-4 transition-colors duration-300 hover:border-gold/30">
-                      <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-gold/40 text-[0.6rem] text-gold">
-                        ✦
+                    <div className="group flex items-start gap-4 rounded-xl border border-fern bg-pine px-6 py-4 transition-colors duration-200 hover:border-gold/50">
+                      <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gold/10">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-3 w-3 text-gold">
+                          <path d="m5 12.5 4.5 4.5L19 7.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       </span>
                       <div>
-                        <p className="text-cream">{f.t}</p>
+                        <p className="font-bold text-cream">{f.t}</p>
                         <p className="text-sm text-sage">{f.c}</p>
                       </div>
                     </div>
@@ -80,7 +91,7 @@ export default function HennaPage() {
         <div className="mx-auto max-w-7xl px-5 md:px-10">
           <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
             <div className="order-2 lg:order-1">
-              <SectionHeading eyebrow="Indigo" title={<>The <span className="gold-text italic">pioneer</span> of deep blue</>} />
+              <SectionHeading eyebrow="Indigo" title={<>The <span className="gold-text">pioneer</span> of deep blue</>} />
               <Reveal delay={0.2}>
                 <p className="mt-7 max-w-lg text-lg leading-relaxed text-sage">
                   NaturalHerbs is the ultimate pioneer in exporting the highest quality Indigo Powder to renowned
@@ -98,20 +109,30 @@ export default function HennaPage() {
               </Reveal>
             </div>
             <Reveal className="order-1 lg:order-2">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-cream/10">
-                <SmartImage
-                  src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1400&auto=format&fit=crop"
-                  alt="Indigo powder"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-[2.5s] hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-bark/70 to-transparent" />
-                <div className="glass absolute bottom-6 left-6 right-6 rounded-2xl p-5">
-                  <p className="font-[family-name:var(--font-display)] text-xl">Indigofera tinctoria</p>
-                  <p className="text-xs uppercase tracking-[0.25em] text-sage">Indigo powder, export grade</p>
+              <figure className="overflow-hidden rounded-2xl border border-fern bg-pine">
+                <div className="relative aspect-[4/3]">
+                  <SmartImage
+                    src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1400&auto=format&fit=crop"
+                    alt="Indigo powder"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
                 </div>
-              </div>
+                <figcaption className="flex items-center justify-between gap-4 border-t border-fern p-5">
+                  <div>
+                    <p className="font-bold text-cream">Indigofera tinctoria</p>
+                    <p className="mt-0.5 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-sage">
+                      Indigo powder, export grade
+                    </p>
+                  </div>
+                  <span aria-hidden className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold/10 text-gold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4">
+                      <path d="M12 3c-3.5 2-6 4.5-6 8a6 6 0 0 0 12 0c0-3.5-2.5-6-6-8Z" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </figcaption>
+              </figure>
             </Reveal>
           </div>
         </div>

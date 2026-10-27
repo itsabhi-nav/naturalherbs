@@ -1,28 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import ScrollTop from "@/components/ScrollTop";
-import ScrollProgress from "@/components/ScrollProgress";
-import Preloader from "@/components/Preloader";
-import CursorGlow from "@/components/CursorGlow";
 import JsonLd from "@/components/JsonLd";
 import { siteGraph, SITE_URL, SITE_NAME, SEO_SUMMARY } from "@/lib/seo";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 const KEYWORDS = [
   "herbal extracts manufacturer India",
@@ -88,31 +71,26 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: "NaturalHerbs",
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#04100b",
+  themeColor: "#faf9f5",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en">
       <body className="bg-bark text-cream font-sans antialiased">
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://picsum.photos" />
         <JsonLd id="ld-site" data={siteGraph()} />
-        <Preloader />
-        <CursorGlow />
-        <SmoothScroll>
-          <ScrollProgress />
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <WhatsAppFloat />
-          <ScrollTop />
-        </SmoothScroll>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+        <WhatsAppFloat />
+        <ScrollTop />
       </body>
     </html>
   );

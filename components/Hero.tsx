@@ -1,132 +1,98 @@
-"use client";
-
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import Aurora from "./Aurora";
-import SmartImage from "./SmartImage";
-import Magnetic from "./Magnetic";
 import { BRAND } from "@/lib/data";
+import SmartImage from "./SmartImage";
 
-const ease = [0.22, 1, 0.36, 1] as const;
-const LINE_1 = ["From", "nature,"];
-const LINE_2 = ["for", "you."];
-
+/**
+ * Editorial light hero: strong typography on a warm canvas, with the
+ * botanical photo presented as a framed visual on the right.
+ */
 export default function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
-  const word = (w: string, i: number) => (
-    <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
-      <motion.span
-        className={`inline-block ${w === "nature," || w === "you." ? "gold-text italic" : ""}`}
-        initial={{ y: "115%" }}
-        animate={{ y: 0 }}
-        transition={{ duration: 1, ease, delay: 0.35 + i * 0.09 }}
-      >
-        {w}
-      </motion.span>
-      <span>&nbsp;</span>
-    </span>
-  );
-
   return (
-    <section ref={ref} className="hero grain relative flex min-h-[84svh] items-center overflow-hidden md:min-h-[100svh]">
-      {/* botanical backdrop with parallax */}
-      <motion.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0 -z-10 h-[115%]">
-        <SmartImage
-          src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2400&auto=format&fit=crop"
-          alt="Deep green forest with soft light"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-bark/78" />
-        <div className="absolute inset-0 bg-gradient-to-b from-bark/40 via-transparent to-bark" />
-      </motion.div>
-      <Aurora />
+    <section className="relative overflow-hidden bg-gradient-to-b from-moss/80 via-bark to-bark">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 pb-20 pt-32 md:px-10 md:pb-28 md:pt-40 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+        {/* ---------------- text ---------------- */}
+        <div>
+          <p className="eyebrow mb-6 flex items-center gap-3">
+            <span className="h-px w-10 bg-gold" aria-hidden />
+            Estd 2005, NaturalHerbs Global
+          </p>
 
-      <motion.div style={{ y: textY, opacity: fade }} className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-24 md:px-10 md:pt-28">
-        {/* ESTD, typographic line, no capsule */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.2 }}
-          className="eyebrow mb-6 flex items-center gap-4 md:mb-7 md:gap-5"
-        >
-          <span className="h-px w-8 bg-gold/70 md:w-12" />
-          Estd 2005, NaturalHerbs Global
-        </motion.p>
+          <h1 className="max-w-2xl text-[clamp(2.7rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight">
+            From <span className="text-gold">nature</span>,<br />
+            for you.
+          </h1>
 
-        <h1 className="max-w-5xl font-[family-name:var(--font-display)] text-[clamp(2.9rem,10vw,8.5rem)] font-medium leading-[0.98] tracking-tight">
-          <span className="block">{LINE_1.map((w, i) => word(w, i))}</span>
-          <span className="block">{LINE_2.map((w, i) => word(w, LINE_1.length + i))}</span>
-        </h1>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-sage md:text-lg">
+            Authentic herbal solutions for ultimate wellness. Botanical extracts, raw herbs, oils and
+            cosmeceuticals, exported to 80+ countries with certified purity.
+          </p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 26 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 0.9 }}
-          className="mt-6 max-w-xl text-base leading-relaxed text-sage md:mt-7 md:text-xl"
-        >
-          Authentic herbal solutions for ultimate wellness. Botanical extracts, raw herbs, oils
-          and cosmeceuticals, exported to{" "}
-          <span className="text-cream">80+ countries</span> with certified purity.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 26 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 1.05 }}
-          className="mt-10 flex flex-wrap gap-4"
-        >
-          <Magnetic>
+          <div className="mt-9 flex flex-wrap gap-4">
             <a
               href="#product-line"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-cream px-5 py-3 md:px-8 md:py-4 text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-bark transition-transform duration-300 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-3 rounded-full bg-gold px-7 py-3.5 text-sm font-bold text-white shadow-[0_12px_28px_-12px_rgba(46,107,69,0.55)] transition-colors duration-200 hover:bg-gold-soft md:px-8"
             >
               Explore the range
-              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              <span
-                aria-hidden
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-gold-soft via-gold to-gold-soft transition-transform duration-500 group-hover:translate-x-0"
-              />
+              <span aria-hidden>→</span>
             </a>
-          </Magnetic>
-          <Magnetic>
             <a
               href={BRAND.whatsapp}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-3 rounded-full border border-cream/20 px-5 py-3 md:px-8 md:py-4 text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-cream/90 backdrop-blur transition-all duration-300 hover:border-gold/60 hover:text-gold-soft"
+              className="inline-flex items-center gap-3 rounded-full border border-cream/25 bg-pine px-7 py-3.5 text-sm font-bold text-cream transition-colors duration-200 hover:border-gold hover:text-gold md:px-8"
             >
               Talk to us
             </a>
-          </Magnetic>
-        </motion.div>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 1 }}
-        style={{ opacity: fade }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-      >
-        <div className="flex flex-col items-center gap-3">
-          <span className="text-[0.6rem] uppercase tracking-[0.4em] text-sage/70">Scroll</span>
-          <div className="h-12 w-px overflow-hidden bg-cream/15">
-            <motion.div
-              className="h-5 w-px bg-gold"
-              animate={{ y: [-20, 48] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            />
+          </div>
+
+          {/* stats row */}
+          <div className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-fern pt-7">
+            <div>
+              <p className="text-2xl font-bold text-cream md:text-3xl">80+</p>
+              <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-sage">
+                Countries
+              </p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-cream md:text-3xl">20+</p>
+              <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-sage">
+                Years
+              </p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-cream md:text-3xl">90%</p>
+              <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-sage">
+                Buyer retention
+              </p>
+            </div>
           </div>
         </div>
-      </motion.div>
+
+        {/* ---------------- visual ---------------- */}
+        <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+          {/* offset frame accent behind the photo */}
+          <div
+            aria-hidden
+            className="absolute -right-4 -top-4 hidden h-full w-full rounded-2xl border border-gold/30 md:block"
+          />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-fern shadow-[0_24px_60px_-30px_rgba(30,43,34,0.35)]">
+            <SmartImage
+              src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop"
+              alt="Deep green forest with soft light"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 42vw"
+              className="object-cover"
+            />
+          </div>
+          {/* floating chip */}
+          <div className="glass absolute -bottom-6 left-6 rounded-xl px-5 py-3.5 shadow-[0_12px_30px_-15px_rgba(30,43,34,0.3)]">
+            <p className="text-sm font-bold text-cream">Certified &amp; lab-tested</p>
+            <p className="mt-0.5 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-sage">
+              COA with every batch
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -21,14 +21,14 @@ export default function TermsPage() {
       />
       <section className="py-12 md:py-20">
         <div className="mx-auto max-w-4xl space-y-4 px-5 md:px-10">
-          {TERMS.map((t, i) => (
-            <Reveal key={t.n} delay={i * 0.06}>
-              <article className="group grid gap-4 rounded-3xl border border-cream/8 bg-pine p-6 transition-colors duration-300 hover:border-gold/25 md:grid-cols-[5rem_1fr] md:p-10">
-                <span className="font-[family-name:var(--font-display)] text-3xl text-gold/70 transition-colors group-hover:text-gold">
+          {TERMS.map((t) => (
+            <Reveal key={t.n}>
+              <article className="grid gap-4 rounded-2xl border border-fern bg-pine p-6 md:grid-cols-[5rem_1fr] md:p-10">
+                <span className="text-2xl font-bold text-gold">
                   {t.n}
                 </span>
                 <div>
-                  <h2 className="font-[family-name:var(--font-display)] text-2xl text-cream md:text-3xl">{t.title}</h2>
+                  <h2 className="text-xl font-bold text-cream md:text-2xl">{t.title}</h2>
                   <p className="mt-3 leading-relaxed text-sage">{t.copy}</p>
                 </div>
               </article>

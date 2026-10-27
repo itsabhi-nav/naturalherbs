@@ -20,7 +20,7 @@ export default function ScrollTop() {
     <button
       aria-label="Scroll to top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className={`fixed bottom-6 right-5 z-[80] grid h-14 w-14 place-items-center rounded-full border border-cream/15 bg-bark/85 text-cream shadow-[0_12px_34px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all duration-500 hover:border-gold/50 hover:text-gold md:right-6 ${
+      className={`fixed bottom-6 right-5 z-[80] grid h-14 w-14 place-items-center rounded-full border border-fern bg-pine text-cream shadow-[0_8px_24px_rgba(30,43,34,0.12)] transition-all duration-300 hover:border-gold hover:text-gold md:right-6 ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >

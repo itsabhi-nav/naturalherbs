@@ -24,10 +24,9 @@ export default function OilsPage() {
         eyebrow="The Aromatics"
         title="The essential oils"
         copy="We have been enchanting the world with premium oils, pure, potent, and unrivaled in excellence. Essential grades for flavour, fragrance, cosmetics and wellness."
-        img="https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&w=2400&auto=format&fit=crop"
       />
 
-      <section className="py-12 md:py-20">
+      <section className="pb-12 pt-0 md:pb-20">
         <div className="mx-auto max-w-7xl px-5 md:px-10">
           <EntryExplorer eyebrow="Aromatics" items={items} />
         </div>

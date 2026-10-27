@@ -1,6 +1,6 @@
 import Reveal from "./Reveal";
 
-/** Editorial section header: gold eyebrow + big serif line + optional copy. */
+/** Clean section header: eyebrow + bold heading + optional copy. */
 export default function SectionHeading({
   eyebrow,
   title,
@@ -18,14 +18,10 @@ export default function SectionHeading({
   return (
     <div className={`${centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"} ${className}`}>
       <Reveal>
-        <p className="eyebrow mb-4 flex items-center gap-3">
-          {centered && <span className="h-px w-8 bg-gold/60" aria-hidden />}
-          {eyebrow}
-          <span className="h-px w-8 bg-gold/60" aria-hidden />
-        </p>
+        <p className="eyebrow mb-4">{eyebrow}</p>
       </Reveal>
       <Reveal delay={0.08}>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-medium leading-[1.08] tracking-tight text-cream md:text-6xl">
+        <h2 className="text-3xl font-bold leading-[1.1] tracking-tight text-cream md:text-5xl">
           {title}
         </h2>
       </Reveal>

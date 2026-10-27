@@ -18,18 +18,14 @@ function SocialIcon({ label }: { label: string }) {
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-cream/8 bg-moss">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 h-96 w-[130%] -translate-x-1/2 rounded-[100%] bg-leaf/6 blur-3xl"
-      />
-      <div className="relative mx-auto max-w-7xl px-5 py-12 md:px-10 md:py-16">
+    <footer className="border-t border-fern bg-moss">
+      <div className="mx-auto max-w-7xl px-5 py-12 md:px-10 md:py-16">
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr] md:gap-20">
           <div className="space-y-6">
             <Logo />
-            <p className="max-w-md font-[family-name:var(--font-display)] text-2xl leading-snug text-cream/90 md:text-3xl">
+            <p className="max-w-md text-xl font-bold leading-snug text-cream md:text-2xl">
               {BRAND.tagline}{" "}
-              <span className="text-sage">Authentic herbal solutions for ultimate wellness, since 2005.</span>
+              <span className="font-normal text-sage">Authentic herbal solutions for ultimate wellness, since 2005.</span>
             </p>
             <div className="flex gap-3">
               {BRAND.socials.map((s) => (
@@ -39,7 +35,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={s.label}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-cream/12 text-cream/60 transition-all duration-300 hover:border-gold/60 hover:text-gold-soft hover:-translate-y-0.5"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-fern text-cream/70 transition-colors duration-200 hover:border-gold hover:text-gold"
                 >
                   <SocialIcon label={s.label} />
                 </a>
@@ -53,13 +49,13 @@ export default function Footer() {
               <ul className="space-y-2.5 text-sm">
                 {NAV_LINKS.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="text-cream/70 transition-colors hover:text-gold-soft">
+                    <Link href={l.href} className="text-cream/70 transition-colors hover:text-gold">
                       {l.label}
                     </Link>
                   </li>
                 ))}
                 <li>
-                  <Link href="/terms-conditions" className="text-cream/70 transition-colors hover:text-gold-soft">
+                  <Link href="/terms-conditions" className="text-cream/70 transition-colors hover:text-gold">
                     Terms & Conditions
                   </Link>
                 </li>
@@ -72,7 +68,7 @@ export default function Footer() {
                   <span className="block text-cream">India</span>
                   {BRAND.addressIndia}
                   <br />
-                  <a href={BRAND.phoneIndiaHref} className="hover:text-gold-soft">
+                  <a href={BRAND.phoneIndiaHref} className="hover:text-gold">
                     {BRAND.phoneIndia}
                   </a>
                 </p>
@@ -80,7 +76,7 @@ export default function Footer() {
                   <span className="block text-cream">Canada</span>
                   {BRAND.addressCanada}
                   <br />
-                  <a href={BRAND.phoneCanadaHref} className="hover:text-gold-soft">
+                  <a href={BRAND.phoneCanadaHref} className="hover:text-gold">
                     {BRAND.phoneCanada}
                   </a>
                 </p>
@@ -89,9 +85,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-cream/8 pt-7 text-xs text-sage/70 md:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-fern pt-7 text-xs text-sage md:flex-row">
           <p>© 2026 NaturalHerbs, All Rights Reserved.</p>
-          <p className="tracking-[0.2em] uppercase">From nature, for you</p>
+          <p className="uppercase tracking-[0.16em]">From nature, for you</p>
         </div>
       </div>
     </footer>

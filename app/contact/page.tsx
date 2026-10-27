@@ -94,17 +94,17 @@ export default function ContactPage() {
                   <a
                     href={c.href}
                     {...(c.k === "WhatsApp" ? { target: "_blank", rel: "noreferrer" } : {})}
-                    className="group flex h-full min-w-0 flex-col rounded-2xl border border-cream/8 bg-pine p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold/30 md:p-6"
+                    className="group flex h-full min-w-0 flex-col rounded-xl border border-fern bg-pine p-5 transition-colors duration-200 hover:border-gold/50 md:p-6"
                   >
-                    <p className="text-[0.6rem] uppercase tracking-[0.3em] text-sage">{c.k}</p>
+                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-sage">{c.k}</p>
                     <p
-                      className={`mt-3 break-words font-[family-name:var(--font-display)] text-base leading-snug md:text-lg ${
-                        c.accent === "leaf" ? "text-leaf" : c.accent === "gold" ? "text-gold-soft" : "text-cream"
+                      className={`mt-3 break-words text-base font-bold leading-snug md:text-lg ${
+                        c.accent === "leaf" ? "text-leaf" : c.accent === "gold" ? "text-gold" : "text-cream"
                       }`}
                     >
                       {c.line}
                     </p>
-                    <span className="mt-auto pt-5 text-xs text-sage transition-colors group-hover:text-gold-soft">
+                    <span className="mt-auto pt-5 text-xs text-sage transition-colors group-hover:text-gold">
                       {c.cta} <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
                     </span>
                   </a>
@@ -113,11 +113,11 @@ export default function ContactPage() {
             </div>
 
             <Reveal delay={0.15}>
-              <div className="overflow-hidden rounded-3xl border border-cream/8">
+              <div className="overflow-hidden rounded-2xl border border-fern">
                 <div className="grid md:grid-cols-2">
                   <div className="bg-pine p-6 md:p-8">
                     <p className="eyebrow mb-4">India Headquarters</p>
-                    <p className="font-[family-name:var(--font-display)] text-xl leading-snug text-cream">
+                    <p className="text-lg font-bold leading-snug text-cream">
                       {BRAND.addressIndia}
                     </p>
                     <p className="mt-4 text-sm text-sage">
@@ -127,20 +127,20 @@ export default function ContactPage() {
                       href="https://www.google.com/maps/search/?api=1&query=C-9+Dayal+Bagh+Faridabad+India"
                       target="_blank"
                       rel="noreferrer"
-                      className="group mt-6 inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-gold-soft transition-colors hover:text-gold"
+                      className="group mt-6 inline-flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-gold transition-colors hover:text-gold-soft"
                     >
                       Get directions
-                      <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
                     </a>
                   </div>
-                  <div className="border-t border-cream/8 bg-bark p-6 md:border-l md:p-8 md:border-t-0">
+                  <div className="border-t border-fern bg-moss/70 p-6 md:border-l md:p-8 md:border-t-0">
                     <p className="eyebrow mb-4">Canada Office</p>
-                    <p className="font-[family-name:var(--font-display)] text-xl leading-snug text-cream">
+                    <p className="text-lg font-bold leading-snug text-cream">
                       {BRAND.addressCanada}
                     </p>
                     <p className="mt-4 text-sm leading-relaxed text-sage">
                       Serving North America,{" "}
-                      <a href={`mailto:${BRAND.emailCanada}`} className="text-cream hover:text-gold-soft">
+                      <a href={`mailto:${BRAND.emailCanada}`} className="text-cream hover:text-gold">
                         {BRAND.emailCanada}
                       </a>
                     </p>
@@ -151,7 +151,7 @@ export default function ContactPage() {
                           href={s.href}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-2 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-sage transition-colors hover:text-gold-soft"
+                          className="flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-sage transition-colors hover:text-gold"
                         >
                           {s.label}
                           <span aria-hidden className="text-[0.6rem] text-gold/60">↗</span>

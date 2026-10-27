@@ -24,10 +24,9 @@ export default function HerbalExtractsPage() {
         eyebrow="The Herbal Extracts"
         title="Powder & liquid botanical extracts"
         copy="Sixty-plus standardized botanical extracts, every batch backed by essential certifications for quality and compliance, ready for formulations worldwide."
-        img="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?q=80&w=2400&auto=format&fit=crop"
       />
 
-      <section className="py-12 md:py-20">
+      <section className="pb-12 pt-0 md:pb-20">
         <div className="mx-auto max-w-7xl px-5 md:px-10">
           <EntryExplorer eyebrow="Extracts" items={items} />
         </div>
