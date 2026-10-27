@@ -80,7 +80,7 @@ export default function HomePage() {
               </Reveal>
             </div>
 
-            <Reveal delay={0.15} className="relative">
+            <Reveal delay={0.15} className="relative lg:order-first">
               <figure className="overflow-hidden rounded-2xl border border-fern bg-pine shadow-[0_24px_60px_-35px_rgba(30,43,34,0.35)]">
                 <div className="relative aspect-[4/3]">
                   <SmartImage
@@ -416,16 +416,10 @@ export default function HomePage() {
             {/* export markets panel */}
             <Reveal delay={0.15}>
               <div className="rounded-2xl border border-fern bg-pine p-8 md:p-12">
-                <div className="flex items-end gap-3 border-b border-fern pb-8">
-                  <p className="text-6xl font-bold text-gold md:text-7xl">80+</p>
-                  <p className="pb-2 text-sm font-bold uppercase tracking-[0.18em] text-sage">
-                    Countries<br />served
-                  </p>
-                </div>
-                <p className="pt-8 pb-5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-sage">
+                <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-sage">
                   Key export markets
                 </p>
-                <div className="flex flex-wrap gap-2.5">
+                <div className="mt-6 flex flex-wrap gap-2.5">
                   {MARKETS.map((m) => (
                     <span
                       key={m}
@@ -435,6 +429,10 @@ export default function HomePage() {
                     </span>
                   ))}
                 </div>
+                <p className="mt-8 border-t border-fern pt-6 text-sm leading-relaxed text-sage">
+                  Serving importers, formulators and private-label brands across five continents, with
+                  documentation and compliance support on every shipment.
+                </p>
               </div>
             </Reveal>
           </div>
