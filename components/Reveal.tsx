@@ -30,13 +30,10 @@ export default function Reveal({
     const el = ref.current as HTMLElement | null;
     if (!el) return;
 
-    // phones: zero choreography. everything the server sent stays visible,
-    // native scroll + instant content, nothing can ever be "missing"
-    if (window.matchMedia("(pointer: coarse)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     // only elements still below the viewport actually need a reveal
-    if (el.getBoundingClientRect().top > window.innerHeight * 0.9) {
+    if (el.getBoundingClientRect().top > window.innerHeight * 0.92) {
       el.classList.add("rv-hidden");
       el.style.setProperty("--rvd", `${Math.round(delay * 1000)}ms`);
 

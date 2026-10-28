@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
+import ScrollProgress from "@/components/ScrollProgress";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
@@ -86,11 +88,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://picsum.photos" />
         <JsonLd id="ld-site" data={siteGraph()} />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
-        <ScrollTop />
+        <SmoothScroll>
+          <ScrollProgress />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+          <ScrollTop />
+        </SmoothScroll>
       </body>
     </html>
   );

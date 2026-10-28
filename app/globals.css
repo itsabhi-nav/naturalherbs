@@ -78,16 +78,68 @@ body {
 /* IntersectionObserver-driven reveal: class-based, no framer on hot path */
 .rv-hidden {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(28px);
 }
 .rv-hidden[data-rv-show] {
   opacity: 1;
   transform: none;
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--rvd, 0ms);
   will-change: opacity, transform;
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* smaller travel on phones so reveals feel crisp, not swimmy */
+@media (max-width: 767px) {
+  .rv-hidden {
+    transform: translateY(16px);
+  }
+  .rv-hidden[data-rv-show] {
+    transition-duration: 0.6s;
+  }
+}
+
+/* slow botanical ticker */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 58s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* fade the ticker into its edges instead of hard-cutting it */
+.ticker-mask {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+/* orbiting globe: ring turns one way, pills counter-turn so labels stay upright */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-s-rev {
+  to { transform: rotate(-360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 48s linear infinite;
+}
+.animate-spin-s-rev {
+  animation: spin-s-rev 48s linear infinite;
 }
 
 /* "gold-text" is now a clean solid accent — no gradient text */
@@ -115,5 +167,12 @@ body {
   .rv-hidden {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .animate-spin-slow,
+  .animate-spin-s-rev {
+    animation: none !important;
   }
 }

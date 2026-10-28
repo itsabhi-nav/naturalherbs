@@ -36,8 +36,8 @@ function StatBlock() {
 
 /* -------------------------------- page -------------------------------- */
 
-/* key export markets, shown as clean tags */
-const MARKETS = ["USA", "Canada", "Europe", "United Kingdom", "Japan", "UAE", "Australia", "Southeast Asia"];
+/* key export markets — ride the rotating globe in the trust section */
+const GLOBE_MARKETS = ["USA", "Europe", "UK", "Japan", "UAE", "Australia"];
 
 export default function HomePage() {
   return (
@@ -396,7 +396,7 @@ export default function HomePage() {
                     Worldwide presence,<br /><span className="gold-text">world-class trust</span>
                   </>
                 }
-                copy="NaturalHerbs exports to 80+ countries, serving top global markets with pure, certified botanical ingredients."
+                copy="Certified botanical ingredients, shipped to importers, formulators and private-label brands on every continent."
               />
               <div className="mt-10 space-y-4">
                 {TRUST_BULLETS.map((b, i) => (
@@ -413,25 +413,52 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            {/* export markets panel */}
+            {/* rotating globe — markets orbit the ring, labels stay upright */}
             <Reveal delay={0.15}>
-              <div className="rounded-2xl border border-fern bg-pine p-8 md:p-12">
-                <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-sage">
-                  Key export markets
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2.5">
-                  {MARKETS.map((m) => (
-                    <span
-                      key={m}
-                      className="rounded-full border border-fern bg-moss/70 px-4 py-2 text-sm font-medium text-cream"
-                    >
-                      {m}
-                    </span>
-                  ))}
+              <div className="mx-auto w-full max-w-[18rem] md:max-w-md">
+                <div className="relative mx-auto aspect-square w-full">
+                  <div className="absolute inset-0 rounded-full border border-fern" />
+                  <div className="absolute inset-[12%] animate-spin-slow rounded-full border border-dashed border-gold/30" />
+                  <div className="absolute inset-[26%] rounded-full border border-fern" />
+
+                  {/* centre badge */}
+                  <div className="absolute inset-0 grid place-items-center">
+                    <div className="glass grid h-28 w-28 place-items-center rounded-full text-center md:h-40 md:w-40">
+                      <div>
+                        <p className="text-2xl font-bold text-gold md:text-4xl">80+</p>
+                        <p className="mt-1 text-[0.58rem] font-bold uppercase tracking-[0.2em] text-sage md:text-[0.65rem]">
+                          Countries
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* orbiting pills */}
+                  <div className="absolute inset-0 animate-spin-slow">
+                    {GLOBE_MARKETS.map((m, i) => {
+                      const angle = (i / GLOBE_MARKETS.length) * Math.PI * 2 - Math.PI / 2;
+                      return (
+                        <div
+                          key={m}
+                          className="absolute"
+                          style={{
+                            left: `${50 + 41 * Math.cos(angle)}%`,
+                            top: `${50 + 41 * Math.sin(angle)}%`,
+                            transform: "translate(-50%, -50%)",
+                          }}
+                        >
+                          <div className="animate-spin-s-rev glass flex items-center gap-1.5 whitespace-nowrap rounded-full border border-fern px-2.5 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-cream md:gap-2 md:px-3 md:text-[0.66rem]">
+                            <span aria-hidden className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+                            {m}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-                <p className="mt-8 border-t border-fern pt-6 text-sm leading-relaxed text-sage">
-                  Serving importers, formulators and private-label brands across five continents, with
-                  documentation and compliance support on every shipment.
+
+                <p className="mx-auto mt-10 max-w-xs text-center text-sm leading-relaxed text-sage">
+                  Serving importers, formulators and private-label brands across five continents.
                 </p>
               </div>
             </Reveal>
